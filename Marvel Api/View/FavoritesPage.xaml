@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marvel_Api.View.FavoritesPage"
+             xmlns:Local="clr-namespace:Marvel_Api.ViewModel"
+           
+             Title="{Binding Title}"
+               BackgroundColor="#1A1A1A"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="changeicon" Command="{Binding ChangeListCommand}" />
+       
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <CollectionView  
+            ItemsSource="{Binding Items}"
+            SelectionMode="None"
+            >
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Span="2" Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView Padding="0"  >
+                        <SwipeView.LeftItems>
+                            <SwipeItems >
+                                <SwipeItemView   Command="{Binding Source={RelativeSource AncestorType={x:Type Local:FavoritesVM}}, Path=DeleteFavoriteCommand}"
+                                   CommandParameter="{Binding id}">
+                                    <Label Text="Delete" 
+                                           Margin="5"
+                                           VerticalOptions="CenterAndExpand" 
+                                           HorizontalOptions="Center"
+                                           HorizontalTextAlignment="Center"
+                                           MinimumWidthRequest="150"
+                                             TextColor="WhiteSmoke"
+                                              />
+                                   
+                                </SwipeItemView>
+
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                 
+
+                    <VerticalStackLayout Margin="5">
+                        <Frame Padding="0" HeightRequest="270" MinimumHeightRequest="300" BorderColor="Transparent">
+                            <Image
+                            Source="{Binding thumbnailPath}"  Aspect="Fill" >
+                                <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type Local:FavoritesVM}}, Path=SelcetedItemCommand}"
+                                                     CommandParameter="{Binding id}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Frame>
+                        <Label Text="{Binding title}" 
+                               FontAttributes="Bold"
+                               LineBreakMode="TailTruncation"
+                               Margin="7,4" 
+                               HorizontalTextAlignment="Start"
+                               TextColor="WhiteSmoke"/>
+
+                    </VerticalStackLayout>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+        <ActivityIndicator   IsRunning="{Binding Load}"
+                   Color="Red" WidthRequest="70" HeightRequest="70" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+    </Grid>
+</ContentPage>

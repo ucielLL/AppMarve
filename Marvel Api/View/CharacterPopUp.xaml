@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Marvel_Api.View.CharacterPopUp"
+               Color="Transparent"
+       >
+    <Grid  WidthRequest="320" MinimumHeightRequest="450"
+                         BackgroundColor="Transparent" VerticalOptions="CenterAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="0"  Padding="0" CornerRadius="20" BackgroundColor="Transparent" BorderColor="Transparent"   x:Name="ImageImG">
+            <Image   Source="{Binding Thumbnail}"
+              >
+                <Image.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Up" Swiped="SwipeGestureRecognizer_Swiped"/>
+                    <SwipeGestureRecognizer Direction="Down" Swiped="SwipeGestureRecognizer_Swiped"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+        </Frame>
+        <VerticalStackLayout Grid.Row="1" x:Name="descrition" >
+            <Label 
+           Margin="0,5,0,0"
+           HorizontalOptions="CenterAndExpand"
+           HorizontalTextAlignment="Center"
+           FontSize="Title"
+           TextColor="WhiteSmoke"
+           FontAttributes="Bold"
+            Text="{Binding Item.name}"
+           />
+            <Label 
+            Margin="5,5,0,0"
+           HorizontalOptions="CenterAndExpand"
+            HorizontalTextAlignment="Center"
+            TextColor="WhiteSmoke"
+            Text="{Binding Item.description}"
+       />
+        </VerticalStackLayout>
+       
+
+    </Grid>
+</toolkit:Popup>

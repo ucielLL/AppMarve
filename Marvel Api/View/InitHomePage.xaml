@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Internet="clr-namespace:Marvel_Api.View.Componet"
+             xmlns:local="clr-namespace:Marvel_Api.ViewModel"
+             xmlns:components="clr-namespace:Marvel_Api.View.Componet"
+             x:Class="Marvel_Api.View.InitHomePage"
+             Title=""
+               BackgroundColor="#1A1A1A">
+
+    <ScrollView >
+        <VerticalStackLayout >
+            <Label Text="{Binding FavoriteTitle}" TextColor="WhiteSmoke" 
+                   Margin="5"/>
+            <CollectionView 
+            ItemsSource="{Binding FavoritesItems}"
+            SelectionMode="None"
+            IsVisible="{Binding FavoriteVisible}"
+            >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="5,0">
+                            <Border
+                                Background="#381B1F"
+                                HeightRequest="280"
+                                Stroke="#B3091E"
+                                StrokeShape="RoundRectangle 30,30,30,30"
+                                StrokeThickness="2"
+                                WidthRequest="300">
+                                <Image Aspect="AspectFill" Source="{Binding thumbnailPath}">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:InitHomePageVM}}, Path=SelcetedComicItemCommand}"
+                                   CommandParameter="{Binding id}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <Border.Shadow>
+                                    <Shadow Brush="#FA1430"
+                                            Opacity=".6"
+                                            Radius="20"
+                                            Offset="0,0" />
+                                </Border.Shadow>
+                            </Border>
+                            <RoundRectangle CornerRadius="30"
+                                            HeightRequest="280"
+                                            WidthRequest="300"
+                                            Opacity=".2">
+                                <RoundRectangle.Fill >
+                                    <LinearGradientBrush EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="Transparent"></GradientStop>
+                                        <GradientStop Offset="0" Color="#030005"></GradientStop>
+                                    </LinearGradientBrush>
+                                </RoundRectangle.Fill>
+                            </RoundRectangle>
+                            <Label Text="{Binding title}" TextColor="White" Margin="15"
+                                   VerticalOptions="EndAndExpand"
+                                    LineBreakMode="TailTruncation" 
+                                   MaximumWidthRequest="250"
+                                   FontAttributes="Bold"/>
+
+                        </Grid>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Border
+                                Background="#381B1F"
+                                HeightRequest="280"
+                                Stroke="#B3091E"
+                                StrokeShape="RoundRectangle 30,30,30,30"
+                                StrokeThickness="2"
+                                WidthRequest="300"
+                                 Padding="15"
+                                 Margin="5"
+                                IsVisible="{Binding EmptyVisible}">
+                <Image Aspect="AspectFit" Source="empty"/>
+                <Border.Shadow>
+                    <Shadow Brush="#FA1430"
+                                            Opacity=".6"
+                                            Radius="20"
+                                            Offset="0,0" />
+                </Border.Shadow>
+            </Border>
+
+            <Label Text="Comics" TextColor="WhiteSmoke" 
+                   Margin="5"
+                   IsVisible="{Binding IsContentVisible}"
+                  />
+            <CollectionView 
+            IsVisible="{Binding IsContentVisible}"
+            ItemsSource="{Binding ComicsItems}"
+            SelectionMode="None"
+            >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                                Background="#381B1F"
+                                HeightRequest="200"
+                                Stroke="#1F1919"
+                                StrokeShape="RoundRectangle 30,30,30,30"
+                                StrokeThickness="2"
+                                WidthRequest="170"
+                            Margin="5,0">
+                            <Image Aspect="AspectFill" Source="{Binding thumbnailPath}">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:InitHomePageVM}}, Path=SelcetedComicItemCommand}"
+                                   CommandParameter="{Binding id}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Border.Shadow>
+                                <Shadow Brush="#FA1430"
+                                            Opacity=".8"
+                                             Radius="15"
+                                            Offset="0,0"/>
+                            </Border.Shadow>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+
+            </CollectionView>
+            <Label Text="Series" TextColor="WhiteSmoke" 
+                   Margin="5"
+                   IsVisible="{Binding IsContentVisible}"/>
+            <CollectionView 
+            ItemsSource="{Binding SerieItems}"
+               
+                IsVisible="{Binding IsContentVisible}"
+            >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                                Background="#381B1F"
+                                HeightRequest="200"
+                                Stroke="#1F1919"
+                                StrokeShape="RoundRectangle 30,30,30,30"
+                                StrokeThickness="2"
+                                WidthRequest="170"
+                            Margin="5">
+                            <Image Aspect="AspectFill" Source="{Binding thumbnailPath}">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:InitHomePageVM}}, Path=SelcetedSerieItemCommand}"
+                                   CommandParameter="{Binding id}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Border.Shadow>
+                                <Shadow Brush="#FA1430"
+                                            Opacity=".8"
+                                             Radius="15"
+                                            Offset="0,0"/>
+                            </Border.Shadow>
+
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <components:CheckInternet IsVisible="{Binding WithOutIntenet}" Margin="5,10"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+    
+        
+
+   
+</ContentPage>

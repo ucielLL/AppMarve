@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marvel_Api.View.ComicsPage"
+              xmlns:Internet="clr-namespace:Marvel_Api.View.Componet"
+             xmlns:local="clr-namespace:Marvel_Api.ViewModel"
+             Title="Comics"
+             BackgroundColor="#1A1A1A"
+            >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.08*"/>
+            <RowDefinition Height=".9*"/>
+        </Grid.RowDefinitions>
+
+        <ScrollView Grid.RowSpan="2" IsVisible="{Binding IsContentVisible}" >
+            <CollectionView 
+            ItemsSource="{Binding ComicsList }"
+            SelectionMode="Single"
+           
+            >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Span="2" Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Margin="5">
+                            <Frame Padding="0" HeightRequest="270" MinimumHeightRequest="300" BorderColor="Transparent" CornerRadius="20" >
+                                <Image
+                            Source="{Binding thumbnailPath}"  Aspect="Fill"  >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:ComicsMV}}, Path=SelectedItemCommand}"
+                                                     CommandParameter="{Binding id}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Frame>
+                            <Label Text="{Binding title}" 
+                               FontAttributes="Bold"
+                               LineBreakMode="TailTruncation"
+                               Margin="7,4" 
+                               HorizontalTextAlignment="Start"
+                               TextColor="WhiteSmoke"/>
+
+                        </VerticalStackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </ScrollView>
+        <Internet:CheckInternet IsVisible="{Binding WithOutIntenet}" Grid.RowSpan="2" />
+        <ActivityIndicator  Grid.Row="1" IsRunning="{Binding Load}"
+                  Color="Red" WidthRequest="70" HeightRequest="70" HorizontalOptions="Center" VerticalOptions="Start" />
+        <Grid  Grid.Row="0"
+               Margin="10,5,5,5"
+               BackgroundColor="Transparent"
+              HeightRequest ="40" 
+                VerticalOptions="Start"
+             >
+            <Grid.ColumnDefinitions
+                >
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <BoxView CornerRadius="13,0,13,0" Color="#D44242" Grid.Column="0" IsVisible="{Binding FilterVisible}"/>
+            <Label Text="Sale date" Grid.Column="0"
+                   TextColor="#E8E6E6"
+                    FontAttributes="Bold"
+                   BackgroundColor="Transparent" 
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding FilterVisible}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectFilter}"
+                                          CommandParameter="1"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <BoxView CornerRadius="0" Color="#D44242" Grid.Column="1" IsVisible="{Binding FilterVisible}"/>
+            <Label Text="Issue number" Grid.Column="1"
+                   TextColor="#E8E6E6"
+                    FontAttributes="Bold"
+                   BackgroundColor="Transparent" 
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding FilterVisible}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectFilter}"
+                                          CommandParameter="2"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <BoxView CornerRadius="0,13,0,13" Color="#D44242" Grid.Column="2" IsVisible="{Binding FilterVisible}" />
+            <Label Text="Title  " Grid.Column="2"
+                   TextColor="#E8E6E6"
+                    FontAttributes="Bold"
+                   BackgroundColor="Transparent" 
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding FilterVisible}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectFilter}"
+                                          CommandParameter="3"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Image Grid.Column="3"
+            Source="{Binding IconFilter}" 
+               HorizontalOptions="End" 
+               VerticalOptions="Start"
+               Margin="5"
+               >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowHideFilterCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+
+        </Grid>
+        
+
+    </Grid>
+</ContentPage>

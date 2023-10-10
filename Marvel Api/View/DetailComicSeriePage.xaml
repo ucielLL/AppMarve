@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:Internet="clr-namespace:Marvel_Api.View.Componet"
+             x:Class="Marvel_Api.View.DetailComicSeriePage"
+             Title=""
+              xmlns:local="clr-namespace:Marvel_Api.ViewModel"
+             Background="#1A1A1A"
+             >
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior
+                            IconOverride="back.png" />
+    </Shell.BackButtonBehavior>
+    <Grid>
+        
+        <Grid HeightRequest="420"  VerticalOptions="Start"
+               IsVisible="{Binding IsContentVisible}">
+            <Image 
+               Source="{Binding Item.Base.thumbnailPath}"
+               VerticalOptions="Start"
+               Aspect="Fill"   
+              />
+            <Frame BorderColor="Transparent"  Margin="-5,-6"  
+       HasShadow="True"
+       CornerRadius="0"
+    >
+                <Frame.Background>
+
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="Transparent"
+                          Offset="0.0" />
+                        <GradientStop Color="#1A1A1A"
+                          Offset="1" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+
+            </Frame>
+        
+        </Grid>
+
+        <ScrollView  IsVisible="{Binding IsContentVisible}">
+            <VerticalStackLayout Margin="5,260,5,0">
+                
+                <Label
+               Text="{Binding  Item.Base.title}"
+               FontAttributes="Bold" 
+                   TextColor="White"
+                   FontSize="Title"
+                   VerticalOptions="End"
+                   />
+                <Label 
+               Text="{Binding  Item.Base.description}"
+                   TextColor="White"
+                    VerticalOptions="Start" Margin="0,15"/>
+                <BoxView Color="DimGray" 
+                         HeightRequest="1" 
+                         Opacity="0.4" 
+                         Margin="0,0,0,10"
+                          IsVisible="{Binding SerieVisible}"/>
+                <Grid RowDefinitions="30,30,30,30"
+                      ColumnDefinitions="Auto,*"
+                      IsVisible="{Binding SerieVisible}">
+                    
+                    <Label Text="First publication: " Grid.Row="0" Grid.Column="0"
+                           TextColor="WhiteSmoke"
+                           FontAttributes="Bold"
+                           />
+                    <Label Text="{Binding Item.Series.startYear}" Grid.Row="0" Grid.Column="1"
+                           TextColor="White"
+                           Margin="5,0"
+                           />
+                    <Label Text="Last publication: " Grid.Row="1" Grid.Column="0"
+                           TextColor="WhiteSmoke"
+                           FontAttributes="Bold"
+                           />
+                    <Label Text="{Binding Item.Series.endYear}" Grid.Row="1" Grid.Column="1"
+                           TextColor="White"
+                           Margin="5,0"
+                           />
+                    <Label Text="Publication type: " Grid.Row="2" Grid.Column="0"
+                           TextColor="WhiteSmoke"
+                           FontAttributes="Bold"
+                           />
+                    <Label Text="{Binding Item.Series.type}" Grid.Row="2" Grid.Column="1"
+                           TextColor="White"
+                           Margin="5,0"
+                           />
+                    <Label Text="Rating: " Grid.Row="3" Grid.Column="0" x:Name="rating"
+                           TextColor="WhiteSmoke"
+                           FontAttributes="Bold"
+                           />
+                    <Label Text="{Binding Item.Series.rating}" Grid.Row="3" Grid.ColumnSpan="2"
+                           TextColor="White"
+                           Margin="50,0"
+                           />
+
+                </Grid>
+
+                <BoxView Color="Red" HeightRequest="1" Opacity="0.7" />
+                <CollectionView ItemsSource="{Binding Item.Base.characters.items}" Margin="0,0,0,15" 
+                               >
+                    <CollectionView.Header>
+                        <Label 
+               Text="Characters"
+               FontAttributes="Bold" 
+                   TextColor="Red"
+                   FontSize="Subtitle"
+                    Margin="0,5"
+                   VerticalOptions="End"
+                   />
+                    </CollectionView.Header>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="2" Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout Margin="5">
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding resourceURI}"/>
+                                </VerticalStackLayout.GestureRecognizers>
+                                <Label Text="{Binding name}" TextColor="White"/>
+                                <BoxView Color="Gray" Opacity=".2" HeightRequest="1" />
+                            </VerticalStackLayout>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+        <Image 
+               Source="{Binding ImageLike}"
+               VerticalOptions="Start"
+                HorizontalOptions="End"
+               Aspect="AspectFit"
+                WidthRequest="30"
+                Margin="5"
+             IsVisible="{Binding IsContentVisible}"
+            >
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding AddToFavirite}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Internet:CheckInternet IsVisible="{Binding WithOutIntenet}"/>
+
+    </Grid>
+
+
+</ContentPage>

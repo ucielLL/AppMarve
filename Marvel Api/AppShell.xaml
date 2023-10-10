@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Marvel_Api.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Marvel_Api.View"
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutIcon="menu.png"
+     BackgroundColor="#1A1A1A"
+  Shell.TabBarIsVisible="False"
+    FlyoutBackground="White"
+     CurrentItem="{x:Reference InitHomePage}"
+   >
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid  Background="#EE0027"
+                  HeightRequest="200">
+                <Image Aspect="AspectFit"
+                       Source="marvel_logo.png"
+                      />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+   
+
+        <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*,0.8*" 
+                 >
+                <Image Source="{Binding Icon}"
+                       Margin="5"
+                       HeightRequest="45" />
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Center" 
+                       TextColor="#1A1A1A"
+                      />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+   
+    <FlyoutItem Icon="menu.png"
+                FlyoutDisplayOptions="AsMultipleItems"
+                
+                >
+      
+        <ShellContent Title="Inicio"
+                     Icon="home.png"
+                      ContentTemplate="{DataTemplate local:InitHomePage}"
+                      Route="HomePage"/>
+        
+        <ShellContent Title="Comics"
+                      Icon="comic.png"
+                      ContentTemplate="{DataTemplate local:ComicsPage}"
+                      Route="ComicsPage"/>
+        <ShellContent Title="Series"
+                      Icon="series.png"
+                      ContentTemplate="{DataTemplate local:SeriesPage}"
+                      Route="SeriesPage"/>
+        <ShellContent Title="Favorite"
+                      Icon="favorite.png"
+                      ContentTemplate="{DataTemplate local:FavoritesPage}"
+                      Route="FavoritesPage"/>
+    </FlyoutItem>
+       
+
+</Shell>
