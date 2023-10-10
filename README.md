@@ -22,7 +22,7 @@ On this page you can see a list of comics or a list of series.<br/>
 <img src="imgs/series.PNG" width="220" /> <br/>
 <i> No Internet </i> <br/>
 If there is no internet connection, this screen will be displayed<br/>
-<img src="imgs/noInternet.png" width="220" /> <br/>
+<img src="imgs/noInternet.PNG" width="220" /> <br/>
 <i> Datail </i> <br/>
 This page is to show details of a comic or series<br/>
 <img src="imgs/detail.PNG" width="220" /> <br/>
